@@ -1,0 +1,147 @@
+{
+  "source_skill": "rdg-atomic-design-system",
+  "destination_skill": "mos-atomic-design-system",
+  "source_commit": "36e7776a2e7f2cb368361a93ce072e1b8d860fad",
+  "source_worktree_note": "Includes the existing build-index.ts change that summarises reference asset, font and pen directories.",
+  "files": [
+    {
+      "path": "assets/docs/CHANGELOG.md",
+      "sha256": "c645b8a60036254052d1e78a8dd4d98e81a39c01ad95336f12b5729879708f62"
+    },
+    {
+      "path": "assets/docs/COMPONENT-MAP.md",
+      "sha256": "9f456b15e72ecdcec85c51e8547f49610f07818a7f846ac4abb018c049d89faa"
+    },
+    {
+      "path": "assets/docs/COMPONENT-SPEC.md",
+      "sha256": "16d5ff549c8f5f7d21ed33401766ebed9df59e68d2cffc5a51c941d15b3b1f3c"
+    },
+    {
+      "path": "assets/docs/DESIGN-BRIEF.md",
+      "sha256": "2bdb39c68a7db3f2fcfe1ba8d48fd7d0063cdf6bac3648a1672cd6efec3f7d47"
+    },
+    {
+      "path": "assets/docs/FOUNDATIONS.md",
+      "sha256": "608891643d26018ae53a1d53869d5020287a378fb45d08dde943bd4d905566f6"
+    },
+    {
+      "path": "assets/docs/INDEX.md",
+      "sha256": "bfb656f85881461710093445c2cb9ddad71783aa9adbd437044b6456d0ed016b"
+    },
+    {
+      "path": "assets/docs/README.md",
+      "sha256": "c79aee582fc8134c7610e7a6c2d0fe657291ab865cfdf564810600dc1ecccfac"
+    },
+    {
+      "path": "assets/docs/RULES.md",
+      "sha256": "8ff7dcd2ffe13b325db27428afcaa716a95868392a81d40c2b50208ebdb173a7"
+    },
+    {
+      "path": "assets/shell.html",
+      "sha256": "3095b7b97849e8b047457b9f3820e5f80b5f8d0d3e01757620b7ca76b3ac9e30"
+    },
+    {
+      "path": "assets/styles-base.css",
+      "sha256": "febc3d3acc918aba4f2c9a964d31133eb7c0579b363c00223d7bc3a61ae921a1"
+    },
+    {
+      "path": "assets/template-page.html",
+      "sha256": "cd3a4c4a37b1a14730cc4d1ee8ae4d4ca9fdcc95c3fa972aede463a4de08ba3b"
+    },
+    {
+      "path": "assets/tokens.css",
+      "sha256": "81654e945ea83f2580e7d119598eed7225bd4a7bef4f475d19228a675a6d94fb"
+    },
+    {
+      "path": "assets/v1/styles-base.css",
+      "sha256": "cea34a35e08f123e2fbb3f5b5249f38e6c2aeadf8e93a538cc6226d6af7fa49d"
+    },
+    {
+      "path": "assets/v1/tokens.css",
+      "sha256": "ef617e411628bd46f752157ed721deb285fdf37a39d713788ddbca1b84d61b11"
+    },
+    {
+      "path": "evals/evals.json",
+      "sha256": "1bce2226dfe03b6041ebe415dc2e94cedc8e6cea6672b7f7f7daa12b839e0608"
+    },
+    {
+      "path": "references/brand-discovery.md",
+      "sha256": "a6e79c27d8c2f3070f8fd26dab2f475fda3f2d0c23c10369bac534a637633ce8"
+    },
+    {
+      "path": "references/component-anatomy.md",
+      "sha256": "20c29df8c6e14c84e834fdd3192fe88de6d7df03230f9e05213b4684e6afb4c1"
+    },
+    {
+      "path": "references/figma-export.md",
+      "sha256": "e93f2135190cfaab7af738c0a96807002bbc3b087eadc4360975af70980da9dd"
+    },
+    {
+      "path": "references/gold-standard.md",
+      "sha256": "9d6f86591ccd5a9b096178efa3cdd2361baed215c4b3718f29bf2d07af5770a2"
+    },
+    {
+      "path": "references/html-conventions.md",
+      "sha256": "ea52ce66a3376d438cd35c68a2c81c5091e3212ae403b32005e12920dac8b058"
+    },
+    {
+      "path": "references/inspiration-research.md",
+      "sha256": "edd5efc173f6e46d385d33dcd4586a4c3cb74d3bf041ef1d9b6a9d39d34a7243"
+    },
+    {
+      "path": "references/output-structure.md",
+      "sha256": "6274e4837a404926ab19f0f3d9c4b9a055b08ace37b1887bbee084d09fbaac60"
+    },
+    {
+      "path": "references/stage-specs.md",
+      "sha256": "cb0256bfbb1cf57d563e86a44b81e3aea44f2ed89ae3ead607cdf1388da0dc7a"
+    },
+    {
+      "path": "references/token-architecture.md",
+      "sha256": "317aa677242a3a71493f5b099e790c3110eabcdd605aab879bd4492567ce4026"
+    },
+    {
+      "path": "scripts/build-index.ts",
+      "sha256": "56501cf58c630cdc43fc12f730844b568067121babffe39d2b0d27afa27a8aae"
+    },
+    {
+      "path": "scripts/discover-brand.ts",
+      "sha256": "96f62e9f48e03bd0ba1a96a94cb274b518eb72f975801f343697e20dab877ac8"
+    },
+    {
+      "path": "scripts/export-figma.ts",
+      "sha256": "56c6b89320d67d1c27c60baf72b2a688a796af29a0f93ff57eee5aa5c283c8cb"
+    },
+    {
+      "path": "scripts/export-tokens.ts",
+      "sha256": "0456d9db988b707e23deb04914da67d29a09455ea14f8ffc978da431625480e3"
+    },
+    {
+      "path": "scripts/grade-run.ts",
+      "sha256": "89c1c0d503ece0be12dd4fde4d409f4f2e517442b17b0ebc44f17054b7f17bf2"
+    },
+    {
+      "path": "scripts/init-system.ts",
+      "sha256": "d6181af1b754266d609ed26558b045e68db1d7a2e4030ed17085d5f04070343c"
+    },
+    {
+      "path": "scripts/test-verify.ts",
+      "sha256": "5320b2a348988f666a981d0cff360bbf34b5eb09d8f5183af9d2cbb0861d09c1"
+    },
+    {
+      "path": "scripts/verify-stage.ts",
+      "sha256": "183f7abcb16422e6895f53bee1d8fb998f0cf68d79b0f105984c93b88f8d21f8"
+    },
+    {
+      "path": "SKILL.md",
+      "sha256": "20e71fbdc4955d15737ab2ff1b554e66f4dfdf2ae440fad08c60eaa0bf329a72"
+    }
+  ],
+  "port_changes": [
+    "MarketingOS brain context and Taste Skill handoff",
+    "Portable target-parent discovery default",
+    "Optional browser and pattern-research tools",
+    "Portable examples and fictional evaluation names",
+    "Updated skill identity and distribution metadata"
+  ]
+}

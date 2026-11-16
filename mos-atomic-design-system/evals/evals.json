@@ -1,0 +1,239 @@
+{
+  "skill_name": "mos-atomic-design-system",
+  "note": "Portable evaluation scenarios use fictional business names. Supply the fixture workspaces described by each scenario. They are not claims that private author projects or completed evaluation runs are bundled. Deterministic regression coverage is scripts/test-verify.ts.",
+  "evals": [
+    {
+      "id": 0,
+      "name": "known-brand-doc",
+      "prompt": "ok so the cedar site rebuild is kicking off — repo is at WORKSPACE/targets/cedar-studio-site. before we write a single component I want a proper design system documented, atomic design style. design inspo I keep coming back to: https://linear.app, https://vercel.com, https://www.anthropic.com. the brand guidelines should be somewhere in my main branch repo. just get me as far as foundations + atoms for now, don't go all the way to pages yet, and don't stop to ask me to approve each bit — just build it and I'll review at the end.",
+      "expected_output": "Discovers cedar-studio-brain/business/brand/guidelines/brand-guidelines.md (canonical: true), compiles its five brand colours and three-face type stack into semantic tokens, writes a DESIGN-BRIEF.md with an Inspiration Map covering all three URLs, emits foundations.html and atoms.html with contiguous A-nn IDs. Output is v2: a single design-system/ root with README.md as entry point, four-tier tokens.css with full colour scales, and one spec .md per atom.",
+      "files": []
+    },
+    {
+      "id": 1,
+      "name": "other-path-convention",
+      "prompt": "need a design system for the harbour homes website — repo's at WORKSPACE/targets/harbour-homes-web. it's a residential builder, warm and premium rather than corporate. references: https://www.canny.com.au and https://www.metricon.com.au. we already have brand stuff written down somewhere I think. foundations and atoms is enough for this pass, and no need to check in with me between steps.",
+      "expected_output": "Discovers harbour-homes/reference/brand/brand-guidelines.md (status: master, a different path convention to eval 0), follows its declared companion files for the palette and type, notices the four pre-existing atomic-design HTML artifacts (a legacy hand-built system with no STATE.json) and extends them in their own files and naming conventions, recording new work and a legacy-file-to-ladder-stage mapping in an ATOMIC-NOTES.md beside them and leaving a short DESIGN-SYSTEM.md pointer in the target repo, rather than starting a fresh system or scaffolding v2. Produces the foundations and atoms work in that existing format.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "greenfield-no-brand",
+      "prompt": "starting something new — northwind labs, dev tooling for platform teams. repo scaffold is at WORKSPACE/targets/northwind-labs. there's no brand doc, nothing written down yet, it's genuinely from scratch. the sites I want it to feel like: https://linear.app, https://stripe.com, https://railway.app. build me the design system foundations and atoms. don't wait on me for approvals.",
+      "expected_output": "Finds no brand document for this brand, says so explicitly rather than borrowing another brand's palette, derives a provisional contract from the three inspiration sources, labels every derived value as provisional in the brief, and still emits a coherent tokens + foundations + atoms set. Output is v2: a single design-system/ root with README.md as entry point, four-tier tokens.css with full colour scales, and one spec .md per atom.",
+      "files": []
+    }
+  ],
+  "assertions": [
+    {
+      "id": "brand-source-correct",
+      "text": "The brand source named in DESIGN-BRIEF.md / STATE.json (or ATOMIC-NOTES.md for a legacy system) is the one belonging to THIS brand (or explicitly 'none found' for eval 2) — never another brand's document",
+      "applies_to": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "tokens-resolved",
+      "text": "tokens.css exists with zero {{PLACEHOLDER}} left, and defines at least 5 semantic (mapped --color-*) colour roles plus a display/sans font pair",
+      "applies_to": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "tokens-traceable",
+      "text": "Every colour value in the token file traces to the discovered brand document or to a named inspiration source, OR is a skill default (status hues, white/black) or a derived scale step that is recorded as such in brief §3 and marked /* default */ or /* derived */ in tokens.css — no unattributed values",
+      "applies_to": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "inspiration-map-complete",
+      "text": "The brief (DESIGN-BRIEF.md, or ATOMIC-NOTES.md for a legacy system) contains an Inspiration Map with a row per supplied URL, and each row fills in BOTH what we take and what we deliberately leave",
+      "applies_to": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "stage-pages-exist",
+      "text": "foundations.html and atoms.html both exist, each with robots noindex, a skip link, id=\"content\", and exactly one aria-current=\"page\" inside the rail nav",
+      "applies_to": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "atom-ids-contiguous",
+      "text": "atoms.html carries zero-padded A-nn IDs, contiguous from A-01 with no gaps or duplicates, surfaced in the UI via .card-label",
+      "applies_to": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "atom-states-shown",
+      "text": "Interactive atoms are shown in their required states (at minimum hover/focus/disabled where applicable), not default only",
+      "applies_to": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "focus-visible-present",
+      "text": "A :focus-visible rule exists and sets a visible property (outline, box-shadow or border)",
+      "applies_to": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "no-raw-values",
+      "text": "No raw hex or literal font-family in component rules or inline styles — token definitions and @font-face excepted",
+      "applies_to": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "verify-stage-passes",
+      "text": "bun scripts/verify-stage.ts --target <t> --stage 2 exits 0",
+      "applies_to": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "gaps-stated-honestly",
+      "text": "Any unavailable input (Mobbin unauthenticated, a URL that would not load, no brand doc) is recorded as an explicit gap rather than silently skipped or papered over",
+      "applies_to": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "id": "existing-system-respected",
+      "text": "The four pre-existing atomic-design artifacts in harbour-homes are noticed and the run proposes extending them rather than silently replacing",
+      "applies_to": [
+        1
+      ]
+    },
+    {
+      "id": "no-brand-borrowing",
+      "text": "With no brand document for this brand, the run does NOT adopt another brand's palette or type; derived values are labelled provisional",
+      "applies_to": [
+        2
+      ]
+    },
+    {
+      "id": "v2-single-root",
+      "text": "All output lives under a single <target>/design-system/ folder containing README.md (an entry point that links the other files), STATE.json with schemaVersion 2, brief/DESIGN-BRIEF.md, tokens/tokens.css and reference/ — and nothing was written to docs/design-system/, public/atomic-framework/ or src/styles/tokens.css",
+      "applies_to": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "tier-markers",
+      "text": "design-system/tokens/tokens.css contains the four marker comments /* @tier brand */, /* @tier alias */, /* @tier mapped */ and /* @tier responsive */, in that order",
+      "applies_to": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "full-colour-scales",
+      "text": "Every colour hue in the Brand tier (each --brand-<hue>-<step> family, excluding scale, font, weight, duration, ease, shadow and container tokens and pure white/black) defines at least 10 steps covering 50, 100, 200, 300, 400, 500, 600, 700, 800 and 900",
+      "applies_to": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "mapped-state-tokens",
+      "text": "The Mapped tier defines at least this set: --color-text-action, -action-hover, -disabled, -on-action, -placeholder; --color-icon-action, -disabled, -on-action; --color-surface-action, -action-hover, -disabled; --color-border-action, -action-hover, -disabled, -focus",
+      "applies_to": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "mapped-status-tokens",
+      "text": "The Mapped tier defines --color-text-<status>, --color-surface-<status> and --color-border-<status> for each of error, success, warning and info",
+      "applies_to": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "components-mapped-only",
+      "text": "No component or specimen CSS (design-system/reference/styles.css and inline styles in reference/*.html) references a --brand- or --alias- custom property; those appear only in tokens/tokens.css",
+      "applies_to": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "atom-spec-files",
+      "text": "design-system/components/atoms/ holds exactly one <ID>-<slug>.md per A-nn ID shown in atoms.html (icons are excluded: they carry I-nn IDs on icons.html and share a single components/atoms/icons.md), each with frontmatter (id, name, level, status, composes, tokens, specimen) followed by the sections Purpose, Anatomy, Props / variants, States, Sizes, Behaviour & responsive, Accessibility, Markup, Do / Don't",
+      "applies_to": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "tokens-json-valid",
+      "text": "design-system/tokens/tokens.json exists and parses as JSON",
+      "applies_to": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "focus-ring-standard",
+      "text": "The :focus-visible rule for interactive components uses var(--focus-ring-width) for the outline width and var(--color-border-focus) for its colour",
+      "applies_to": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "touch-target-token",
+      "text": "tokens.css defines --brand-size-touch (44px or larger) and a mapped --size-touch-target that references it",
+      "applies_to": [
+        0,
+        2
+      ]
+    },
+    {
+      "id": "legacy-extended",
+      "text": "Output extends Harbour Homes's existing atomic-design artifacts/conventions — new work references or adds to the existing stage files or mirrors their naming — rather than starting a fresh system",
+      "applies_to": [
+        1
+      ]
+    },
+    {
+      "id": "no-v2-scaffold",
+      "text": "No design-system/STATE.json with schemaVersion 2 is created for Harbour Homes",
+      "applies_to": [
+        1
+      ]
+    },
+    {
+      "id": "legacy-pointer",
+      "text": "The target repo (harbour-homes-web) contains a DESIGN-SYSTEM.md that points to where the existing Harbour Homes system lives, and the ATOMIC-NOTES.md beside that system maps each legacy stage file to a ladder stage",
+      "applies_to": [
+        1
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+<!doctype html>
+<!--
+  FULL-PAGE REFERENCE SHELL — one file per P-nn page instance.
+  Lives at design-system/reference/pages/P-nn-<slug>.html, one level below
+  the stage pages — hence ../styles.css and ../pages.html. (A v1 system
+  extended in place keeps pages beside the stage pages: drop the "../".)
+
+  Unlike the stage pages, this has NO rail. It renders the page for
+  real, at full fidelity, with real copy — because the whole point
+  of stage 06 is to see whether the system survives contact with
+  actual content. A rail alongside it would break that judgement.
+
+  The review bar is the only chrome. It exists so a reviewer always
+  knows which artifact they are looking at and can get back to the
+  index in one click.
+
+  Placeholders:
+    {{LANG}} {{BG_HEX}} {{BRAND_NAME}}
+    {{PAGE_TITLE}}    e.g. Homepage
+    {{PAGE_ID}}       e.g. P-05
+    {{TEMPLATE_ID}}   the T-nn this instantiates, e.g. T-05
+    {{STATUS}}        built | draft | external
+    {{CONTENT_NOTE}}  provenance of the copy on this page — see below
+    {{BODY}}          the page itself, composed from approved organisms
+
+  CONTENT_NOTE is not decoration. When a page uses real numbers or
+  claims, record where they came from and when. The reference build
+  this skill is modelled on omitted member counts specifically
+  because public sources disagreed — that note is why the omission
+  reads as a decision rather than an oversight.
+-->
+<html lang="{{LANG}}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="{{BG_HEX}}" />
+    <title>{{PAGE_TITLE}} · {{BRAND_NAME}} page reference</title>
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body data-page="{{PAGE_ID}}" data-template="{{TEMPLATE_ID}}" data-status="{{STATUS}}">
+    <a class="skip-link" href="#content">Skip to content</a>
+    <nav class="template-review-bar" aria-label="Reference navigation">
+      <a href="../pages.html">← Page index</a>
+      <p><span>{{PAGE_ID}}</span> {{PAGE_TITLE}}</p>
+      <span>{{CONTENT_NOTE}} · no-index</span>
+    </nav>
+    <main id="content">
+      {{BODY}}
+    </main>
+  </body>
+</html>

@@ -1,0 +1,851 @@
+/* =============================================================
+   FRAMEWORK CHROME — the design system reference site itself.
+
+   This styles the *viewer*: the rail, the page headers, the
+   specimen cards your components sit inside. It is NOT part of
+   the design system being documented.
+
+   Keeping the chrome separate from the specimens matters. If the
+   frame and the exhibit share styles you can no longer tell which
+   decisions are the brand's and which are the viewer's — and the
+   reference stops being a contract.
+
+   Specimen markup (the actual atoms/molecules/organisms) gets
+   appended BELOW this block, under banner comments that mirror
+   the ladder:
+       /* ---- A-nn — atoms ---- *\/
+       /* ---- M-nn — molecules ---- *\/
+   ...so the stylesheet reads in the same order as the system.
+   ============================================================= */
+
+/* ---- Reset ---- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--color-bg);
+  overflow-x: clip;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text-body);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-body);
+  line-height: var(--leading-body);
+  margin: 0;
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+/* Every focusable thing gets a visible ring. This is the single
+   highest-leverage accessibility rule in the system — it is set
+   once here so no component can forget it. */
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 4px;
+}
+
+/* Tint the canvas with the accent and keep the normal text colour, rather than
+   flooding the accent behind the text. Accent-as-background only survives when
+   the accent and the text sit at opposite ends of the lightness range: on a
+   light brand with a deep accent (mauve #724444 behind ink #2a2223) it lands
+   near 1.9:1 and selected text becomes unreadable. Tinting holds in both
+   directions — measured 9.3:1 on a light brand and 13.3:1 on a dark one. */
+::selection {
+  background: color-mix(in srgb, var(--color-accent) 30%, var(--color-bg));
+  color: var(--color-text);
+}
+
+h1,
+h2,
+h3,
+p,
+figure,
+blockquote {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--font-size-hero);
+  letter-spacing: var(--tracking-hero);
+  line-height: var(--leading-display);
+}
+
+h2 {
+  font-size: var(--font-size-h2);
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+h3 {
+  font-size: var(--font-size-h3);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+code,
+.mono,
+.eyebrow,
+.number,
+.label,
+.status {
+  font-family: var(--font-mono);
+}
+
+.sr-only {
+  border: 0;
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+/* ---- Shell + rail ---- */
+
+.skip-link {
+  background: var(--color-text);
+  color: var(--color-bg);
+  left: 1rem;
+  padding: 0.75rem 1rem;
+  position: fixed;
+  top: 1rem;
+  transform: translateY(-200%);
+  z-index: 100;
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+.shell {
+  display: grid;
+  grid-template-columns: var(--rail-width, 18rem) minmax(0, 1fr);
+  margin-inline: auto;
+  max-width: var(--shell-max, 96rem);
+  min-height: 100vh;
+}
+
+.rail {
+  align-content: start;
+  align-self: start;
+  border-right: 1px solid var(--color-border);
+  display: grid;
+  gap: var(--s7);
+  min-height: 100vh;
+  padding: var(--s6) var(--s5);
+  position: sticky;
+  top: 0;
+}
+
+.wordmark {
+  color: var(--color-text);
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 1.18rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.monogram {
+  color: var(--color-text);
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  line-height: 1;
+}
+
+.rail-brand-short {
+  display: none;
+}
+
+.rail-kicker {
+  color: var(--color-text-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: var(--tracking-label);
+  margin: 0 0 var(--s3);
+  text-transform: uppercase;
+}
+
+.stage-nav {
+  display: grid;
+  gap: var(--s1);
+}
+
+.stage-nav a {
+  align-items: center;
+  border-left: 1px solid transparent;
+  color: var(--color-text-muted);
+  display: grid;
+  gap: var(--s3);
+  grid-template-columns: 1.75rem 1fr;
+  min-height: 2.75rem; /* >= 44px target */
+  padding: var(--s2) var(--s3);
+  text-decoration: none;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.stage-nav a:hover,
+.stage-nav a[aria-current="page"] {
+  border-color: var(--color-accent);
+  color: var(--color-text);
+}
+
+.stage-nav a[aria-current="page"] {
+  background: var(--color-surface);
+}
+
+.stage-nav .number {
+  color: var(--color-text-subtle);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+}
+
+.stage-nav a[aria-current="page"] .number {
+  color: var(--color-focus);
+}
+
+.rail-footer {
+  align-self: end;
+  color: var(--color-text-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  line-height: 1.55;
+  text-transform: uppercase;
+}
+
+/* ---- Page header + sections ---- */
+
+.page {
+  min-width: 0;
+}
+
+.page-header {
+  border-bottom: 1px solid var(--color-border);
+  display: grid;
+  gap: var(--s5);
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.25rem, 5vw, 5rem)
+    clamp(3rem, 6vw, 5rem);
+}
+
+.eyebrow {
+  align-items: center;
+  color: var(--color-text-muted);
+  display: inline-flex;
+  font-size: 0.72rem;
+  gap: var(--s3);
+  letter-spacing: var(--tracking-label);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  background: var(--color-accent);
+  content: "";
+  height: 0.45rem;
+  width: 0.45rem;
+}
+
+.page-header h1 {
+  margin: 0;
+  max-width: 12ch;
+}
+
+.page-header > p {
+  color: var(--color-text-muted);
+  font-size: clamp(1rem, 1.5vw, 1.25rem);
+  margin: 0;
+  max-width: 48rem;
+}
+
+.status {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  padding: var(--s2) var(--s3);
+  text-transform: uppercase;
+  width: fit-content;
+}
+
+.content {
+  padding-inline: clamp(1.25rem, 5vw, 5rem);
+}
+
+.section {
+  padding-block: clamp(5rem, 10vw, 9rem);
+  scroll-margin-top: 1rem;
+}
+
+.section + .section {
+  border-top: 1px solid var(--color-border);
+}
+
+.section-head {
+  display: grid;
+  gap: var(--s7);
+  grid-template-columns: minmax(13rem, 3fr) minmax(0, 7fr);
+  margin-bottom: var(--s8);
+}
+
+.section-head > div {
+  display: grid;
+  gap: var(--s3);
+}
+
+.section-head h2 {
+  margin: 0;
+}
+
+.section-head > p {
+  color: var(--color-text-muted);
+  font-size: clamp(1rem, 1.3vw, 1.15rem);
+  margin: 0;
+  max-width: 42rem;
+}
+
+.section-number,
+.card-label,
+.number,
+.label {
+  color: var(--color-text-muted);
+  font-size: 0.7rem;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+/* The NN.n section number and the X-nn specimen ID are the
+   system's coordinates. They are accented so they stay findable
+   when you and a reviewer are talking about "03.4" or "M-17". */
+.section-number {
+  color: var(--color-focus);
+  font-family: var(--font-mono);
+}
+
+/* ---- Generic grids + cards ---- */
+
+.grid-2,
+.grid-3,
+.grid-4,
+.grid-5 {
+  display: grid;
+  gap: var(--s4);
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.grid-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  min-width: 0;
+  padding: var(--s5);
+}
+
+.card h3 {
+  margin: var(--s5) 0 var(--s3);
+}
+
+.card p {
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+/* ---- Stage index (00 · System map) ---- */
+
+.stage-grid {
+  display: grid;
+  gap: var(--s4);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.stage-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  display: grid;
+  gap: var(--s5);
+  grid-template-columns: 2rem 1fr auto;
+  min-height: 14rem;
+  padding: var(--s5);
+  text-decoration: none;
+  transition:
+    border-color var(--duration-fast) var(--ease-out),
+    transform var(--duration-fast) var(--ease-out);
+}
+
+.stage-card:hover {
+  border-color: var(--color-text-subtle);
+  transform: translateY(-2px);
+}
+
+.stage-card h2 {
+  font-size: 1.75rem;
+  margin: 0 0 var(--s3);
+}
+
+.stage-card p {
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  margin: 0;
+}
+
+.stage-card .status-line {
+  align-self: end;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  grid-column: 2;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.stage-card .arrow {
+  color: var(--color-text);
+  font-size: 1.4rem;
+  grid-column: 3;
+  grid-row: 1 / 3;
+}
+
+/* ---- Foundations helpers (01) ---- */
+
+.swatch {
+  aspect-ratio: 1 / 1.15;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--s4);
+}
+
+.swatch h3 {
+  margin: 0 0 var(--s1);
+}
+
+.swatch code,
+.swatch p {
+  font-size: 0.72rem;
+}
+
+.swatch p {
+  margin: var(--s2) 0 0;
+}
+
+.token-list {
+  display: grid;
+}
+
+.token-list > div {
+  align-items: center;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  gap: var(--s4);
+  justify-content: space-between;
+  padding-block: var(--s3);
+}
+
+.token-list code,
+.token-list span {
+  font-size: 0.75rem;
+}
+
+.token-list span {
+  color: var(--color-text-muted);
+}
+
+.font-card {
+  min-height: 22rem;
+}
+
+.font-sample {
+  color: var(--color-text) !important;
+  margin: var(--s6) 0 !important;
+}
+
+.data-table {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  margin-top: var(--s7);
+  overflow-x: auto; /* wide tables scroll themselves, page never does */
+}
+
+.data-row + .data-row {
+  border-top: 1px solid var(--color-border);
+}
+
+.data-row > span {
+  font-size: 0.75rem;
+  padding: var(--s3);
+}
+
+.data-row > span + span {
+  border-left: 1px solid var(--color-border);
+}
+
+.data-head {
+  background: var(--color-surface);
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.reading-measure {
+  border-left: 1px solid var(--color-accent);
+  margin-top: var(--s8);
+  max-width: var(--container-reading);
+  padding-left: var(--s6);
+}
+
+/* ---- Specimen cards (02 Atoms, 03 Molecules) ---- */
+
+.specimen-grid {
+  display: grid;
+  gap: var(--s4);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.specimen-grid--2 > .specimen {
+  grid-column: span 6;
+}
+
+.specimen-grid--3 > .specimen {
+  grid-column: span 4;
+}
+
+.specimen-grid > .specimen--wide {
+  grid-column: 1 / -1;
+}
+
+.specimen-grid--3 > .specimen--span-2 {
+  grid-column: span 8;
+}
+
+.specimen {
+  background: color-mix(in srgb, var(--color-text) 1.5%, transparent);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.specimen__head {
+  align-items: start;
+  display: flex;
+  gap: var(--s4);
+  justify-content: space-between;
+  min-height: 5.75rem;
+  padding: var(--s4);
+}
+
+.specimen__head h3 {
+  font-size: 1rem;
+  margin: var(--s2) 0 0;
+}
+
+.specimen__usage {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-muted);
+  flex: 0 0 auto;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.04em;
+  padding: 0.35rem 0.55rem;
+  text-transform: uppercase;
+}
+
+/* The stage is where the real component lives. It is deliberately
+   roomy — a component judged in a cramped box gets approved on
+   the wrong evidence. */
+.specimen__stage {
+  align-items: center;
+  background: var(--color-bg);
+  border-block: 1px solid var(--color-border);
+  display: flex;
+  flex: 1;
+  min-height: 15rem;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.specimen__stage--surface {
+  background: var(--color-surface);
+}
+
+.specimen__stage--inverted {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+.specimen__note {
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  margin: 0;
+  min-height: 4.25rem;
+  padding: var(--s4);
+}
+
+/* ---- Organism specimens (04) ---- */
+
+.organism-specimen {
+  background: color-mix(in srgb, var(--color-text) 1.5%, transparent);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  min-width: 0;
+  overflow: hidden;
+}
+
+.organism-specimen__head {
+  align-items: start;
+  display: grid;
+  gap: var(--s6);
+  grid-template-columns: minmax(12rem, 0.7fr) minmax(18rem, 1fr);
+  padding: var(--s5);
+}
+
+.organism-specimen__head > div {
+  align-items: baseline;
+  display: flex;
+  gap: var(--s3);
+}
+
+.organism-specimen__head h3 {
+  font-size: 1.15rem;
+  margin: 0;
+}
+
+/* The recipe line is load-bearing documentation: it names the
+   molecules this organism composes, so the ladder stays legible
+   and nobody has to reverse-engineer the relationship. */
+.organism-recipe {
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.025em;
+  margin: 0;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.organism-recipe span {
+  color: var(--color-focus);
+}
+
+.organism-stage {
+  background: var(--color-bg);
+  border-block: 1px solid var(--color-border);
+  min-height: 32rem;
+  overflow: hidden;
+  padding: clamp(2rem, 5vw, 5.5rem);
+}
+
+.organism-stage--compact {
+  min-height: 0;
+  padding-block: clamp(1.25rem, 3vw, 2rem);
+}
+
+.organism-stage--surface {
+  background: var(--color-surface);
+}
+
+.organism-stage--inverted {
+  background: var(--color-text);
+  color: var(--color-bg);
+}
+
+.organism-note {
+  color: var(--color-text-muted);
+  font-size: 0.74rem;
+  margin: 0;
+  padding: var(--s4) var(--s5);
+}
+
+/* ---- Template index + page references (05, 06) ---- */
+
+.template-card-link {
+  display: block;
+  text-decoration: none;
+}
+
+.template-review-bar {
+  align-items: center;
+  background: var(--color-text);
+  color: var(--color-bg);
+  display: grid;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  gap: var(--s4);
+  grid-template-columns: 1fr auto 1fr;
+  letter-spacing: 0.04em;
+  min-height: 2.5rem;
+  padding-inline: clamp(1rem, 4vw, 3rem);
+  text-transform: uppercase;
+}
+
+.template-review-bar a {
+  color: var(--color-bg);
+  width: fit-content;
+}
+
+.template-review-bar p {
+  margin: 0;
+}
+
+.template-review-bar > span:last-child {
+  opacity: 0.62;
+  text-align: right;
+}
+
+/* ---- Page footer ---- */
+
+.footer {
+  border-top: 1px solid var(--color-border);
+  color: var(--color-text-subtle);
+  display: flex;
+  flex-wrap: wrap;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  gap: var(--s4);
+  justify-content: space-between;
+  padding: var(--s6) clamp(1.25rem, 5vw, 5rem);
+  text-transform: uppercase;
+}
+
+.footer a {
+  color: var(--color-text-muted);
+  text-underline-offset: 0.25em;
+}
+
+/* ---- Responsive ----
+   The rail collapses to a horizontal strip before the content
+   grid does, because a 18rem rail eats a phone. */
+
+@media (max-width: 64rem) {
+  .specimen-grid--3 > .specimen,
+  .specimen-grid--3 > .specimen--span-2 {
+    grid-column: span 6;
+  }
+
+  .grid-4,
+  .grid-5 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 48rem) {
+  .shell {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .rail {
+    border-bottom: 1px solid var(--color-border);
+    border-right: 0;
+    gap: var(--s4);
+    min-height: 0;
+    position: static;
+  }
+
+  .rail-brand-full {
+    display: none;
+  }
+
+  .rail-brand-short {
+    display: inline-block;
+  }
+
+  .stage-nav {
+    grid-auto-flow: column;
+    grid-auto-columns: max-content;
+    overflow-x: auto;
+  }
+
+  .rail-footer {
+    display: none;
+  }
+
+  .section-head,
+  .stage-grid,
+  .grid-2,
+  .grid-3,
+  .grid-4,
+  .grid-5 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .specimen-grid > .specimen,
+  .specimen-grid--2 > .specimen,
+  .specimen-grid--3 > .specimen,
+  .specimen-grid--3 > .specimen--span-2 {
+    grid-column: 1 / -1;
+  }
+
+  .organism-specimen__head {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s3);
+  }
+
+  .organism-recipe {
+    text-align: left;
+  }
+}

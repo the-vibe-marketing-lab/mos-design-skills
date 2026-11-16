@@ -1,0 +1,105 @@
+<!doctype html>
+<!--
+  STAGE PAGE SHELL — every reference stage page (00-06) uses this chrome.
+  Lives at design-system/reference/<stage>.html; styles.css sits beside it
+  and imports ../tokens/tokens.css. Inline styles, if any, may use mapped
+  tokens only (never --brand-* / --alias-*).
+
+  Placeholders:
+    {{LANG}}          e.g. en-AU
+    {{BG_HEX}}        raw hex for theme-color (meta only accepts a literal)
+    {{STAGE_TITLE}}   e.g. Molecules
+    {{BRAND_NAME}}    e.g. The Vibe Marketing Lab
+    {{WORDMARK}}      full brand wordmark text
+    {{MONOGRAM}}      short mark shown on narrow viewports
+    {{STAGE_NUM}}     zero-padded stage number, e.g. 03
+    {{STAGE_INTRO}}   one paragraph: what this stage decides
+    {{STATUS}}        e.g. "High fidelity · complete"
+    {{SECTIONS}}      the stage body — <section class="section"> blocks
+    {{PREV_HREF}} / {{PREV_LABEL}}
+    {{NEXT_HREF}} / {{NEXT_LABEL}}
+    {{VERSION}}       e.g. v0.1
+
+  Don't copy this file by hand: `init-system.ts --page <file>`
+  (or --page all) writes each stage page from it with the rail nav
+  emitted whole, so aria-current lands on exactly one entry per
+  page (the parent stage for icons.html), and fills the brand,
+  number, title, footer link and version. The stage fills the rest;
+  verify-stage.ts fails a page with a {{PLACEHOLDER}} left in it.
+  Do not hand-edit the nav in one page only — it desyncs the set;
+  regenerate with --page <file> --force before adding content.
+
+  noindex is not optional. These pages carry unreleased brand
+  decisions and real client copy; they must never be indexed.
+-->
+<html lang="{{LANG}}">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="theme-color" content="{{BG_HEX}}" />
+    <title>{{STAGE_TITLE}} · {{BRAND_NAME}} design system</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <div class="shell">
+      <aside class="rail" aria-label="Design system navigation">
+        <a class="wordmark rail-brand-full" href="index.html">{{WORDMARK}}</a>
+        <a
+          class="monogram rail-brand-short"
+          href="index.html"
+          aria-label="{{BRAND_NAME}} design system home"
+          >{{MONOGRAM}}</a
+        >
+        <div>
+          <p class="rail-kicker">Design system</p>
+          <nav class="stage-nav" aria-label="Design system stages">
+            <a href="index.html"
+              ><span class="number">00</span><span>System map</span></a
+            >
+            <a href="foundations.html"
+              ><span class="number">01</span><span>Foundations</span></a
+            >
+            <a href="atoms.html"
+              ><span class="number">02</span><span>Atoms</span></a
+            >
+            <a href="molecules.html"
+              ><span class="number">03</span><span>Molecules</span></a
+            >
+            <a href="organisms.html"
+              ><span class="number">04</span><span>Organisms</span></a
+            >
+            <a href="templates.html"
+              ><span class="number">05</span><span>Templates</span></a
+            >
+            <a href="pages.html"
+              ><span class="number">06</span><span>Pages</span></a
+            >
+            <a href="rules.html"
+              ><span class="number">07</span><span>Rules</span></a
+            >
+          </nav>
+        </div>
+        <p class="rail-footer">
+          Private · no-index<br />Static HTML/CSS reference
+        </p>
+      </aside>
+      <div class="page">
+        <header class="page-header">
+          <p class="eyebrow">{{STAGE_NUM}} · {{STAGE_TITLE}}</p>
+          <h1>{{STAGE_TITLE}}</h1>
+          <p>{{STAGE_INTRO}}</p>
+          <span class="status">{{STATUS}}</span>
+        </header>
+        <main class="content" id="content">
+          {{SECTIONS}}
+        </main>
+        <footer class="footer">
+          <span>{{BRAND_NAME}} design system · {{VERSION}}</span
+          ><a href="{{NEXT_HREF}}">{{NEXT_LABEL}} →</a>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>

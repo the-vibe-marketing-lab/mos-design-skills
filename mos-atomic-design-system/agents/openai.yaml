@@ -1,0 +1,4 @@
+interface:
+  display_name: "MarketingOS Atomic Design System"
+  short_description: "Build brand-grounded tokens, components and review pages"
+  default_prompt: "Use $mos-atomic-design-system to build this business's design system from the active MarketingOS brain."

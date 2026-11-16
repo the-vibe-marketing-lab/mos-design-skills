@@ -1,0 +1,12 @@
+{
+  "name": "mos-design-skills",
+  "version": "0.1.0",
+  "private": true,
+  "description": "MarketingOS design skills and the atomic design-system framework",
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "check": "bun scripts/check-package.mjs",
+    "test": "bun mos-atomic-design-system/scripts/test-verify.ts && bun scripts/test-port.mjs"
+  }
+}
