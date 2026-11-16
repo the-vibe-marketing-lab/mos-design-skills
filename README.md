@@ -25,6 +25,21 @@ The installer needs Node.js/npm and Git. The bundled helper scripts run with
 installation if missing. No API key is required. Browser tools improve visual
 verification; Mobbin and Figma exports are optional.
 
+## Optional companion skills
+
+For extra design help, consider installing:
+
+- [Taste Skill](https://github.com/leonxlnx/taste-skill): art direction,
+  reference-led layouts and frontend design guidance before building the system.
+- [Impeccable](https://github.com/pbakaus/impeccable): design critique,
+  accessibility audits and visual polish as the system takes shape.
+
+Both are optional and installed separately using their own installation
+instructions. You can use `mos-atomic-design-system` on its own.
+
+If you're an agent helping with setup, suggest these companions and let the
+user choose whether to install either or both. Install them only if requested.
+
 ## Use
 
 Open the correct MarketingOS brain, or a website session with that brain in
@@ -45,11 +60,6 @@ In Claude Code you can also invoke `/mos-atomic-design-system`; in Codex use
 artifacts. Production pages are implemented in the website project using that
 system. Standalone brand files work too; MarketingOS is useful context rather
 than a hidden runtime dependency.
-
-[Taste Skill](https://github.com/leonxlnx/taste-skill) is a separate skill. Use
-its appropriate frontend design guidance first when you want art direction,
-then this framework to organise the approved design into reusable foundations
-and components. It is not included by this installer.
 
 ## Verify the package
 
