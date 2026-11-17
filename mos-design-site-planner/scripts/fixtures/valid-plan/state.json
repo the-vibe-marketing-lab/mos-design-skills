@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "status": "approved",
+  "step": 9,
+  "brain": "tidewater-brain",
+  "project": "tidewater-site",
+  "existingSite": "https://tidewater.example.com.au",
+  "tools": { "searchConsole": "export", "dataforseo": true, "crawler": "scrapling", "webSearch": true },
+  "approvals": { "card": "2026-11-18", "brief": "2026-11-18", "plan": "2026-11-18" },
+  "updated": "2026-11-18"
+}

@@ -1,14 +1,73 @@
 # mos-design-skills
 
-Design skills for MarketingOS, Claude Code and Codex. The first skill is
-**mos-atomic-design-system**, ported from Richard's atomic design framework.
+Design skills for MarketingOS, Claude Code and Codex.
+
+| Skill | What it does |
+| --- | --- |
+| **mos-design-site-planner** | Plans the website before anything is built: a sourced brief, a search-intent map and a spec for every page, approved by you |
+| **mos-atomic-design-system** | Builds the design system the pages are made from, ported from Richard's atomic design framework |
+
+Recommended order for a new website: `mos-design-authentication` →
+EmDash project setup → `mos-design-site-planner` → `mos-atomic-design-system`.
+Each skill works on its own; the order is what makes each step's output the
+next step's input.
+
+## mos-design-site-planner
+
+Plans a small-business website from the active business brain. It shows what
+the brain already knows (with the source of each fact), asks only about the
+gaps with a recommended answer for each question, locks the brief with you,
+then researches: the existing site and its URLs, Search Console, keyword
+volumes (DataForSEO if you have a key, free autocomplete if not), results
+pages, People Also Ask and competitor sitemaps. Every finding is labelled
+measured, observed or assumed, and anything it could not check is listed as a
+research gap rather than guessed.
+
+The plan follows fixed rules: one page per search intent, one service page per
+money service, location pages only for areas you genuinely serve with content
+unique to that area, and a keep, merge or redirect decision for every existing
+URL that has traffic or links. You approve or edit each page, and every
+decision is recorded. It saves `site-plan/` in the website project
+(`site-plan.md`, `sitemap.csv`, `decisions.md`, `research/`), runs a
+deterministic plan validator (its test suite feeds it 22 deliberately broken
+plans), adds the outcome to the project notes and commits the planning files
+locally. It stops at the approved plan: no pages,
+copy, redirects or visual design.
+
+Install for Claude Code:
+
+```sh
+npx skills add https://github.com/the-vibe-marketing-lab/mos-design-skills --skill mos-design-site-planner --agent claude-code --global --yes
+```
+
+For Codex, replace `--agent claude-code` with `--agent codex`. Bun runs the
+bundled validator. No API key is required; a DataForSEO key and a Search
+Console export make the research stronger.
+
+Use: open the business's MarketingOS brain, or a website session with that
+brain in context, and paste:
+
+```text
+Use mos-design-site-planner to plan this business's website. Read the active
+MarketingOS brain and the website project's notes first. Show me what you
+already know, ask only about the gaps, and confirm the brief with me before
+researching. Label every finding, keep one page per search intent, and walk me
+through approving each page. Save the approved plan in the website project,
+run the validator and record the next step.
+```
+
+In Claude Code you can also invoke `/mos-design-site-planner`; in Codex use
+`$mos-design-site-planner`. When the plan is approved, run
+`mos-atomic-design-system` next.
+
+## mos-atomic-design-system
 
 It turns the active business brain's brand and references into a documented
 design system: discovery, foundations, atoms, molecules, organisms, templates
 and representative pages. It includes token exports, component specifications,
 an HTML review site, resumable state and verification scripts.
 
-## Install
+### Install
 
 Ask your agent to run this command for Claude Code:
 
@@ -25,7 +84,7 @@ The installer needs Node.js/npm and Git. The bundled helper scripts run with
 installation if missing. No API key is required. Browser tools improve visual
 verification; Mobbin and Figma exports are optional.
 
-## Optional companion skills
+### Optional companion skills
 
 For extra design help, consider installing:
 
@@ -40,7 +99,7 @@ instructions. You can use `mos-atomic-design-system` on its own.
 If you're an agent helping with setup, suggest these companions and let the
 user choose whether to install either or both. Install them only if requested.
 
-## Use
+### Use
 
 Open the correct MarketingOS brain, or a website session with that brain in
 context, and paste:
@@ -71,7 +130,8 @@ bun run test
 ```
 
 The deterministic regression suite exercises valid fixtures and deliberately
-broken v1, v2 and legacy systems. It is not a substitute for reviewing the
+broken v1, v2 and legacy systems, and a valid site plan alongside broken ones
+(a duplicate intent, a missing CTA, unlabelled evidence and more). It is not a substitute for reviewing the
 rendered design or testing the complete agent workflow against your business.
 
 ## Provenance

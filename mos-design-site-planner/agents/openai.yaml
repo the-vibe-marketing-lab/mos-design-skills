@@ -1,0 +1,4 @@
+interface:
+  display_name: "MarketingOS Site Planner"
+  short_description: "Plan a website: sourced brief, search-intent map and page specs"
+  default_prompt: "Use $mos-design-site-planner to plan this business's website from the active MarketingOS brain and stop at an approved plan."

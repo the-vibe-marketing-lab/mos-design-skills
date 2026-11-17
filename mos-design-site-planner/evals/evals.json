@@ -1,0 +1,118 @@
+{
+  "skill_name": "mos-design-site-planner",
+  "note": "Portable evaluation scenarios use fictional business names. Supply the fixture workspaces described by each scenario. They are not claims that private author projects or completed evaluation runs are bundled. Deterministic regression coverage of the plan validator is scripts/test-check-site-plan.ts.",
+  "evals": [
+    {
+      "id": 0,
+      "name": "brain-gsc-existing-site",
+      "prompt": "ok time to plan the tidewater plumbing site. brain is at WORKSPACE/tidewater-brain and the new site project is WORKSPACE/tidewater-site (it has docs/project.md). current site is https://tidewater.example.com.au and I've dropped a search console export in WORKSPACE/exports/gsc-12m/. dataforseo keys are in the brain .env. plan the site, I'll answer whatever you need.",
+      "expected_output": "Shows a what-I-already-know card built from the brain with a source file and confirmed/inferred/missing status per item, asks only about the gaps (for example which suburbs are genuinely served and the primary action) with a recommended answer for each, plays back the brief with the research plan and estimated DataForSEO cost and waits for a yes, then crawls the current site, reads the Search Console export, pulls volumes, labels every finding measured, observed or assumed with a dated S-nn source, builds an intent map with one page per intent, a migration map for every old URL with clicks or links, and per-page specs. Runs the approval loop, records decisions, writes site-plan/ in the project, passes check-site-plan.ts in final mode, adds a dated entry to docs/project.md naming mos-atomic-design-system as the next step, and commits only the planning files without pushing.",
+      "files": []
+    },
+    {
+      "id": 1,
+      "name": "new-business-no-tools",
+      "prompt": "planning the website for fernhill dog grooming, brand new business, no site yet, no search console obviously. no paid tools please. brain is WORKSPACE/fernhill-brain, project WORKSPACE/fernhill-site. what pages do I need?",
+      "expected_output": "Detects that no DataForSEO key, Search Console or existing site is available and says so, uses free autocomplete suggestions labelled observed with no volume data, never states a search volume or a People Also Ask question it did not see, lists every unavailable method in Research gaps, writes the migration section as a single 'None:' line, still produces a complete plan with core pages (home, services, about, contact, offer or lead page where the brain has an offer), and passes check-site-plan.ts.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "location-page-pressure",
+      "prompt": "harbour electrical, brain at WORKSPACE/harbour-brain, site project WORKSPACE/harbour-site. I want a page for every suburb in the eastern suburbs, like 30 of them, that's how the competitors rank. plan it out.",
+      "expected_output": "Explains the location page test, asks which suburbs the business genuinely serves and where it has real jobs, reviews or photos, plans location pages only for areas that pass (served, distinct content, demand or a stated business reason), lists the rest on the contact and service pages, records each area's outcome in decisions.md, and every location page in site-plan.md has a Served area from the brief and a Distinct content line.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "resume-midway",
+      "prompt": "lets keep going on the tidewater site plan from yesterday. WORKSPACE/tidewater-site",
+      "expected_output": "Reads site-plan/state.json (step 6, brief approved), tells the user where the plan stopped and what is left, does not re-run the card or the interview, and continues from page decisions through specs, the approval loop and the final check.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "scope-boundary",
+      "prompt": "plan the cedar studio site and then just build all the pages straight after, don't stop. brain WORKSPACE/cedar-brain, project WORKSPACE/cedar-site.",
+      "expected_output": "Explains that this skill stops at an approved plan, still asks for the brief and plan approvals rather than skipping them, does not create page templates, components, copy or redirects, and ends by naming the next step (mos-atomic-design-system, then page building in the website project).",
+      "files": []
+    }
+  ],
+  "assertions": [
+    {
+      "id": "card-sourced",
+      "text": "The what-I-already-know card lists business, services, locations or service area, audience, offer, voice, proof and primary action, each with a source file (or 'missing') and a confirmed, inferred or missing status",
+      "applies_to": [0, 1, 2]
+    },
+    {
+      "id": "gap-only-questions",
+      "text": "No interview question asks for something the brain already states plainly, every question offers a recommended answer with a reason, and no question asks for design references, colours or fonts",
+      "applies_to": [0, 1, 2]
+    },
+    {
+      "id": "brief-before-research",
+      "text": "The brief is played back and explicitly approved before any crawl, API call or results-page check runs, and the approval is a 'brief | approved' row in decisions.md",
+      "applies_to": [0, 1, 2, 4]
+    },
+    {
+      "id": "no-fabrication",
+      "text": "Every number, keyword volume, People Also Ask question and tool result in the outputs traces to a dated row in research/sources.md; nothing is stated for a tool or method that did not run in the session",
+      "applies_to": [0, 1, 2, 3]
+    },
+    {
+      "id": "evidence-labelled",
+      "text": "Every intent-map row and migration-map row carries a measured, observed or assumed label, and measured and observed rows cite an S-nn source",
+      "applies_to": [0, 1, 2, 3]
+    },
+    {
+      "id": "gaps-listed",
+      "text": "Each research method that did not run is listed in the Research gaps section with the reason",
+      "applies_to": [0, 1, 2, 3]
+    },
+    {
+      "id": "one-page-per-intent",
+      "text": "No intent is owned by more than one page, and a cannibalisation check is recorded in decisions.md or the plan",
+      "applies_to": [0, 1, 2, 3]
+    },
+    {
+      "id": "location-rule",
+      "text": "Location pages exist only for areas in the brief's Areas served list and each has a Distinct content line; areas that fail the test are not given pages",
+      "applies_to": [0, 2]
+    },
+    {
+      "id": "migration-map",
+      "text": "With an existing site, every old URL with clicks or referring domains has a keep, merge, redirect or retire row whose target is a sitemap URL; with no site the section is a 'None:' line",
+      "applies_to": [0, 1]
+    },
+    {
+      "id": "validator-passes",
+      "text": "bun scripts/check-site-plan.ts <project>/site-plan exits 0 in final mode, and the run reports that output rather than claiming a pass it did not run",
+      "applies_to": [0, 1, 2, 3]
+    },
+    {
+      "id": "decisions-recorded",
+      "text": "decisions.md records a dated decision for every page, every edit or removal made in the approval loop, and a final 'plan | approved' row",
+      "applies_to": [0, 1, 2, 3]
+    },
+    {
+      "id": "resume-from-state",
+      "text": "The run reads site-plan/state.json, reports the step it resumes from, and does not repeat completed steps",
+      "applies_to": [3]
+    },
+    {
+      "id": "stops-at-plan",
+      "text": "No page templates, components, final copy, redirects or design-system files are created; the final message names mos-atomic-design-system as the next step",
+      "applies_to": [0, 1, 2, 3, 4]
+    },
+    {
+      "id": "project-notes-updated",
+      "text": "docs/project.md (or the project's equivalent notes) has a dated entry naming the plan files, the check result and the next step",
+      "applies_to": [0, 1, 2, 3]
+    },
+    {
+      "id": "commit-scope",
+      "text": "If the project is a git repository, the commit contains only site-plan planning files and the project notes, excludes research/raw/ and any .env or credential file, and nothing is pushed",
+      "applies_to": [0, 1, 2, 3]
+    }
+  ]
+}

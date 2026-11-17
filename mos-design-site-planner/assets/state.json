@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "status": "in-progress",
+  "step": 1,
+  "brain": null,
+  "project": null,
+  "existingSite": null,
+  "tools": { "searchConsole": "none", "dataforseo": false, "crawler": "none", "webSearch": false },
+  "approvals": { "card": null, "brief": null, "plan": null },
+  "openQuestions": [],
+  "updated": null
+}

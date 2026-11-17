@@ -1,0 +1,8 @@
+page_id,url,type,title_tag,h1,primary_intent,primary_cta,parent
+P-01,/,home,"Inner West Plumber, Same-Day Jobs | Tidewater Plumbing",Same-day plumbing for Sydney's Inner West,I-01,Book a same-day job,
+P-02,/blocked-drains/,service,Blocked Drain Plumber in the Inner West | Tidewater Plumbing,Blocked drains cleared the same day,I-02,Book a same-day drain job,P-01
+P-03,/hot-water/,service,"Hot Water Repairs, Same Day | Tidewater Plumbing",Hot water repairs and replacements,I-03,Book a hot water repair,P-01
+P-04,/plumber-marrickville/,location,"Plumber in Marrickville, Blocked Drains | Tidewater Plumbing",Your Marrickville plumber,I-04,Book a Marrickville job,P-02
+P-05,/about/,about,"About Tidewater Plumbing, Licensed Inner West Plumbers",Who turns up at your door,I-05,Book a job,P-01
+P-06,/contact/,contact,"Contact Tidewater Plumbing, Book a Plumber",Book a plumber,I-06,Submit a booking request,P-01
+P-07,/free-drain-inspection/,lead,Free Drain Camera Inspection | Tidewater Plumbing,Free drain camera inspection with any blocked drain job,I-07,Claim a free inspection,P-01
