@@ -1,0 +1,41 @@
+{
+  "skill_name": "mos-design-authentication",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "hey, I'm starting the website course. can you make sure my computer is set up and logged into everything so I can build my site?",
+      "expected_output": "Runs the checker first, shows a readiness card for Git, Node, Bun, GitHub, Cloudflare and MarketingOS, fixes gaps in order with plain-English steps, gives browser logins as commands the person runs, and ends with EmDash then mos-design-site-planner as the next steps.",
+      "files": [],
+      "assertions": [
+        "Ran check-setup.ts before asking the user anything",
+        "Reply contains a per-item readiness status for GitHub, Cloudflare and MarketingOS",
+        "Browser sign-ins are given as commands for the user to run (with the ! prefix in Claude Code), not run by the agent",
+        "No token or key value appears in the reply",
+        "Names EmDash (npm create emdash@latest) as the next step, then mos-design-site-planner",
+        "Ends with one clear next action for the user"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "wrangler keeps saying Invalid access token code 9109 when I try to deploy, what's going on",
+      "expected_output": "Identifies a rejected Cloudflare API token (often an expired CLOUDFLARE_API_TOKEN in the environment), explains it plainly, and gives the browser login or the new-token route without printing the token.",
+      "files": [],
+      "assertions": [
+        "Explains that the Cloudflare API token in use was rejected",
+        "Offers wrangler login or creating a new token with D1 and R2 permissions",
+        "Never asks the user to paste the token into chat"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I just installed marketing os but claude doesn't seem to know about my brain and git push asks for a password",
+      "expected_output": "Checks mos install state and the brain, explains a new session is needed after mos install, and fixes git push with gh auth login plus gh auth setup-git.",
+      "files": [],
+      "assertions": [
+        "Tells the user to start a new agent session after mos install so skills are discovered",
+        "Recommends gh auth setup-git for the git password prompt",
+        "Does not run mos onboard inside this skill"
+      ]
+    }
+  ]
+}

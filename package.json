@@ -7,6 +7,6 @@
   "license": "MIT",
   "scripts": {
     "check": "bun scripts/check-package.mjs && bun mos-design-site-planner/scripts/check-skill.ts",
-    "test": "bun mos-atomic-design-system/scripts/test-verify.ts && bun scripts/test-port.mjs && bun mos-design-site-planner/scripts/test-check-site-plan.ts"
+    "test": "bun mos-atomic-design-system/scripts/test-verify.ts && bun scripts/test-port.mjs && bun mos-design-site-planner/scripts/test-check-site-plan.ts && bun mos-design-authentication/scripts/test-check-setup.ts"
   }
 }

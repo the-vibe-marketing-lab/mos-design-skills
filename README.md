@@ -4,6 +4,7 @@ Design skills for MarketingOS, Claude Code and Codex.
 
 | Skill | What it does |
 | --- | --- |
+| **mos-design-authentication** | Gets the computer ready: checks and fixes sign-in for GitHub, Cloudflare and MarketingOS, then points to EmDash |
 | **mos-design-site-planner** | Plans the website before anything is built: a sourced brief, a search-intent map and a spec for every page, approved by you |
 | **mos-atomic-design-system** | Builds the design system the pages are made from, ported from Richard's atomic design framework |
 
@@ -11,6 +12,42 @@ Recommended order for a new website: `mos-design-authentication` →
 EmDash project setup → `mos-design-site-planner` → `mos-atomic-design-system`.
 Each skill works on its own; the order is what makes each step's output the
 next step's input.
+
+## mos-design-authentication
+
+The first step. Building a website with an AI agent needs three accounts working
+from your computer: GitHub (where the website project lives), Cloudflare (where
+EmDash sites run) and MarketingOS (so the agent reads your business brain). The
+skill runs a checker before asking you anything, shows a readiness card, and
+walks you through whatever is missing in plain English. Browser sign-ins are
+commands you run yourself; tokens are never printed or pasted into the chat.
+
+It also catches the quiet problems that make an agent wrongly say "you're all
+set": an expired Cloudflare token in a `.env` that overrides a working login, a
+login to the wrong Cloudflare account (an employer's, say), git not using the
+GitHub login, or errors in the brain.
+
+When everything is ready it points to the next steps: create the website with
+[EmDash](https://github.com/emdash-cms/emdash) (`npm create emdash@latest`, the
+Marketing template suits most small businesses), then `mos-design-site-planner`.
+
+Install for Claude Code:
+
+```sh
+npx skills add https://github.com/the-vibe-marketing-lab/mos-design-skills --skill mos-design-authentication --agent claude-code --global --yes
+```
+
+For Codex, replace `--agent claude-code` with `--agent codex`. The checker runs
+with Bun.
+
+Use: in Claude Code type `/mos-design-authentication` (Codex:
+`$mos-design-authentication`), or paste:
+
+```text
+Use mos-design-authentication to check my computer is signed in to GitHub,
+Cloudflare and MarketingOS. Run the checker first, fix what is missing one step
+at a time, and tell me what to do next to start my website.
+```
 
 ## mos-design-site-planner
 

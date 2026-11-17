@@ -1,0 +1,4 @@
+interface:
+  display_name: "MarketingOS Design Authentication"
+  short_description: "Sign in to GitHub, Cloudflare and MarketingOS before building a website"
+  default_prompt: "Use $mos-design-authentication to check this computer is signed in to GitHub, Cloudflare and MarketingOS, fix what is missing, then point me to EmDash and the site planner."
